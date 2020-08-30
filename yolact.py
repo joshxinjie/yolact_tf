@@ -12,14 +12,16 @@ class Yolact(tf.keras.Model):
                                 weights='imagenet'
                             )
 
-        conv3_block4_out = resnet_50_backbone.layers[80].output
-        conv4_block6_out = resnet_50_backbone.layers[142].output
-        conv4_block6_out = resnet_50_backbone.layers[174].output
+        c3 = resnet_50_backbone.layers[80].output
+        c4 = resnet_50_backbone.layers[142].output
+        c5 = resnet_50_backbone.layers[174].output
 
         yolact_resnet_50_backbone = tf.keras.Model(
                                         inputs=resnet_50_backbone.input,
-                                        outputs=[conv3_block4_out, conv4_block6_out, conv4_block6_out
-                                    ])
+                                        outputs=[c3, c4, c5]
+                                    )
 
-    def call():
-        pass
+        
+
+    def call(self, inputs):
+        c3, c4, c5 = self.backbone_resnet(inputs)
