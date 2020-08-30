@@ -10,6 +10,8 @@ class FeaturePyramidTopDownPath(tf.keras.layers.Layer):
     
     """
     def __init__(self, num_fpn_output_filters=256):
+        super(FeaturePyramidTopDownPath, self).__init__()
+        
         # use 1x1 conv to reduce num of channels of c5
         # need padding=same?
         self.c5_1by1_conv_layer = tf.keras.layers.Conv2D(filters=num_fpn_output_filters, kernel_size=(1,1))
